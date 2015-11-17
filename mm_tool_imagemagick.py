@@ -8,54 +8,57 @@ ImageMagick functionality with GIMP
 Author:
 Michael Munzert (mail mm-log com)
 Modified and extended:
-Stephen Geary ( sg@euroapps,com )
+Stephen Geary ( sjgcit  gmail com )
+JLLC is José Luis Lara Carrascal
 
-Version: $Id: mm_tool_imagemagick.py,v 1.196 2014/02/25 15:41:52 sjg Exp $
-2014.02.25 SJG - Add Colorspace conversion routines
-2014.02.22 SJG - Modify the way scipy and numpy are imported
+Version: $Id: mm_tool_imagemagick.py,v 1.198 2015/11/17 22:59:14 sjg Exp $
+2015.11.17 JLLC - Correct typo is temp var name
+                - Correct out of date developer email info
+2014.02.25 SJG  - Add Colorspace conversion routines
+2014.02.22 SJG  - Modify the way scipy and numpy are imported
                         This make sure the rest of the plugin is registered
                         and only the parts that require scipy will not be
                         registered.
-2014.02.21 SJG - Fix an issue with the way popen() works on MS Windows
+2014.02.21 SJG  - Fix an issue with the way popen() works on MS Windows
                         You have to explicitly state the stdin channel must
                         be redirected to PIPE or popen() can fail.
-2014.02.20 SJG - Add checks on getstrokes() return value is None
-               - Add lens distorion correction by path using Linear
+2014.02.20 SJG  - Add checks on getstrokes() return value is None
+                - Add lens distorion correction by path using Linear
                         and Quadratic models
-               - Add a kludge to command line o try and avoid a problem
+                - Add a kludge to command line o try and avoid a problem
                         on some MS Windows system
-2014.02.19 SJG - Added config value for resize filter to retain last value
-2014.02.17 SJG - Added support for mm_tool_imagemagick configuration file in gimp.directory
-               - Fixed bug in perspective tool related to use using vertical guides
-               - Changed ordering of undo group start and end until after avoidable error returns
-               - Changed handling of tempfile creation to avoid runtime errors
-               - Fixed bug in use creation of tempimage ( was using layer[0] not tempdrawable ) .
-2014.02.16 SJG - Changes to simply registration code.
-                 Addition of experimental lens correction tools using paths.
-2014.02.12 SJG - Change rotation tool to automatically detect whether to use
+2014.02.19 SJG  - Added config value for resize filter to retain last value
+2014.02.17 SJG  - Added support for mm_tool_imagemagick configuration file in gimp.directory
+                - Fixed bug in perspective tool related to use using vertical guides
+                - Changed ordering of undo group start and end until after avoidable error returns
+                - Changed handling of tempfile creation to avoid runtime errors
+                - Fixed bug in use creation of tempimage ( was using layer[0] not tempdrawable ) .
+2014.02.16 SJG  - Changes to simply registration code.
+                  Addition of experimental lens correction tools using paths.
+2014.02.12 SJG  - Change rotation tool to automatically detect whether to use
                         vertical or horizontal as target.
-2014.02.09 SJG - Add a plugin allow any mogrify command to be entered by the user
-           SJG - Add code to request resize filter list from ImageMagick ar runtime
-           SJG - Add support for resize filters with Perspective and Rotate tools
-2014.02.08 SJG - Replace all backslashes in file paths with forward slashes on Windows
-2014.02.04 SJG - Added rotation tool using path
-           SJG - Added color dot product tool
-           SJG - Added color distance tool
-2014.02.03 SJG - Added perspective correction based on path
-           SJG - Changed MS Windows path and added some error handling
-           SJG - Added better undo support
-           SJG - Improved perspective tranformation
-2014.02.02 SJG - Refactored code
-           SJG - Added 'sketch' plugin
-           SJG - Added 'charcoal' plugin
-           SJG - Added Sepia tone plugin
-           SJG - Allow update of plugin window during subprocess execution
-           SJG - Changed menu placement
-2014.02.01 SJG - Added better control of source and destination image and layer
-           SJG - Changed Menu placement and name
-           SJG - Changed function name
-2014.01.31 SJG - Added more filters
-2010.02.03 MM  - Added different filters.
+2014.02.09 SJG  - Add a plugin allow any mogrify command to be entered by the user
+           SJG  - Add code to request resize filter list from ImageMagick ar runtime
+           SJG  - Add support for resize filters with Perspective and Rotate tools
+2014.02.08 SJG  - Replace all backslashes in file paths with forward slashes on Windows
+2014.02.04 SJG  - Added rotation tool using path
+           SJG  - Added color dot product tool
+           SJG  - Added color distance tool
+2014.02.03 SJG  - Added perspective correction based on path
+           SJG  - Changed MS Windows path and added some error handling
+           SJG  - Added better undo support
+           SJG  - Improved perspective tranformation
+2014.02.02 SJG  - Refactored code
+           SJG  - Added 'sketch' plugin
+           SJG  - Added 'charcoal' plugin
+           SJG  - Added Sepia tone plugin
+           SJG  - Allow update of plugin window during subprocess execution
+           SJG  - Changed menu placement
+2014.02.01 SJG  - Added better control of source and destination image and layer
+           SJG  - Changed Menu placement and name
+           SJG  - Changed function name
+2014.01.31 SJG  - Added more filters
+2010.02.03 MM   - Added different filters.
 
 modelled after the trace plugin (lloyd konneker, lkk, bootch at nc.rr.com) 
 
@@ -1189,7 +1192,7 @@ def plugin_colordistance_lab( image, drawable, src, dest ):
 
     tempfilename, tempdrawable, tempimage = plugin_maketempfile( image, src )
     
-    if tmepfilename == None:
+    if tempfilename == None:
         return
     
     # get the current foreground color
