@@ -11,6 +11,6 @@ repository to house it.
 The code is build and tested on Linux and should work under MS Windows, but is (currently) untested on MS Windows.
 
 The code has some lense distortion correcton features which whould be viewed as experimetal.  Note that these features
-require SciPy and Numpy to work.  The rest of the plug-in will work without these and it shoud install and run
+require SciPy and Numpy to work.  The rest of the plug-in will work without these and it should install and run
 correctly.
 
